@@ -31,7 +31,7 @@ namespace StringCalculatorKataTest
         [Theory]
         [InlineData("1,2", 3)]
         [InlineData("4,6", 10)]
-        public void AddMethodWithTwoNumbersStringInput(string input, int expectedOutput)
+        public void AddMethodWithTwoNumbersStringWithCommaSplitInput(string input, int expectedOutput)
         {
             StringCalculator calculator = new StringCalculator();
 
@@ -45,6 +45,18 @@ namespace StringCalculatorKataTest
         [InlineData("1,2,6,4,7", 20)]
         [InlineData("4,6,6", 16)]
         public void AddMethodWithUnknownAmountOfNumbersStringInput(string input, int expectedOutput)
+        {
+            StringCalculator calculator = new StringCalculator();
+
+            int result = calculator.Add(input);
+
+            Assert.Equal(expectedOutput, result);
+        }
+
+        [Theory]
+        [InlineData("1,2\n6,4\n7", 20)]
+        [InlineData("4\n6", 10)]
+        public void AddMethodNumbersStringWithCommaAndNewLineSplitersInput(string input, int expectedOutput)
         {
             StringCalculator calculator = new StringCalculator();
 

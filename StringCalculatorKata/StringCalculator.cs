@@ -8,8 +8,8 @@
             {
                 return 0;
             }
-
-            string[] SplitedNumbers = numbers.Split(',');
+            string[] spearator = { ",", "\n" };
+            string[] SplitedNumbers = numbers.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
             int sum = 0;
             for (int i = 0; i < SplitedNumbers.Length; i++)
             {
