@@ -39,5 +39,18 @@ namespace StringCalculatorKataTest
 
             Assert.Equal(expectedOutput, result);
         }
+
+
+        [Theory]
+        [InlineData("1,2,6,4,7", 20)]
+        [InlineData("4,6,6", 16)]
+        public void AddMethodWithUnknownAmountOfNumbersStringInput(string input, int expectedOutput)
+        {
+            StringCalculator calculator = new StringCalculator();
+
+            int result = calculator.Add(input);
+
+            Assert.Equal(expectedOutput, result);
+        }
     }
 }
