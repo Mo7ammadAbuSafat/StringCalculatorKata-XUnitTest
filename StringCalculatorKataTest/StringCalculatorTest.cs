@@ -64,5 +64,19 @@ namespace StringCalculatorKataTest
 
             Assert.Equal(expectedOutput, result);
         }
+
+
+        [Theory]
+        [InlineData("//;\n1;2", 3)]
+        [InlineData("//#\n1#2", 3)]
+        [InlineData("//%^\n1%^2", 3)]
+        public void AddMethodNumbersStringWithDifferentDelimitersInput(string input, int expectedOutput)
+        {
+            StringCalculator calculator = new StringCalculator();
+
+            int result = calculator.Add(input);
+
+            Assert.Equal(expectedOutput, result);
+        }
     }
 }
