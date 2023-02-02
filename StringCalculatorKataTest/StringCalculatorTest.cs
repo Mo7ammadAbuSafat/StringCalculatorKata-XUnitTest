@@ -56,7 +56,7 @@ namespace StringCalculatorKataTest
         [Theory]
         [InlineData("1,2\n6,4\n7", 20)]
         [InlineData("4\n6", 10)]
-        public void AddMethodNumbersStringWithCommaAndNewLineSplitersInput(string input, int expectedOutput)
+        public void AddNumbersStringWithCommaAndNewLineSplitersInput(string input, int expectedOutput)
         {
             StringCalculator calculator = new StringCalculator();
 
@@ -70,7 +70,7 @@ namespace StringCalculatorKataTest
         [InlineData("//;\n1;2", 3)]
         [InlineData("//#\n1#2", 3)]
         [InlineData("//%^\n1%^2", 3)]
-        public void AddMethodNumbersStringWithDifferentDelimitersInput(string input, int expectedOutput)
+        public void AddNumbersStringWithDifferentDelimitersInput(string input, int expectedOutput)
         {
             StringCalculator calculator = new StringCalculator();
 
@@ -83,7 +83,7 @@ namespace StringCalculatorKataTest
         [InlineData("1,4,-1", "negatives not allowed: -1, ")]
         [InlineData("1,-4,-1", "negatives not allowed: -4, -1, ")]
         [InlineData("-1,-4,-1", "negatives not allowed: -1, -4, -1, ")]
-        public void AddMethodNumbersStringThrowExceptionWhenNegativeNumbersInput(string input, string expectedMassege)
+        public void AddNumbersStringThrowExceptionWhenNegativeNumbersInput(string input, string expectedMassege)
         {
             StringCalculator calculator = new StringCalculator();
 
@@ -91,6 +91,18 @@ namespace StringCalculatorKataTest
             calculator.Add(input));
 
             Assert.Equal(expectedMassege, exception.Message);
+        }
+
+        [Theory]
+        [InlineData("1001,2,6000,4", 6)]
+        [InlineData("1001,6000", 0)]
+        public void AddMethodIgnoreBigNumbersInput(string input, int expectedOutput)
+        {
+            StringCalculator calculator = new StringCalculator();
+
+            int result = calculator.Add(input);
+
+            Assert.Equal(expectedOutput, result);
         }
     }
 }

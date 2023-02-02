@@ -17,7 +17,10 @@
                 {
                     ThrowException(i, SplitedNumbers);
                 }
-                sum += num;
+                if (num < 1000)
+                {
+                    sum += num;
+                }
             }
             return sum;
         }
