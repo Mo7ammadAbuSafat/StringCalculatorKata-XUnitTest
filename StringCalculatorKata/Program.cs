@@ -6,7 +6,7 @@
         {
             StringCalculator calculator = new StringCalculator();
 
-            Console.WriteLine(calculator.Add("//;\n1;2"));
+            Console.WriteLine(calculator.Add("1,4,-1"));
         }
     }
 }

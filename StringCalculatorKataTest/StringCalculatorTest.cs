@@ -78,5 +78,19 @@ namespace StringCalculatorKataTest
 
             Assert.Equal(expectedOutput, result);
         }
+
+        [Theory]
+        [InlineData("1,4,-1", "negatives not allowed: -1, ")]
+        [InlineData("1,-4,-1", "negatives not allowed: -4, -1, ")]
+        [InlineData("-1,-4,-1", "negatives not allowed: -1, -4, -1, ")]
+        public void AddMethodNumbersStringThrowExceptionWhenNegativeNumbersInput(string input, string expectedMassege)
+        {
+            StringCalculator calculator = new StringCalculator();
+
+            var exception = Assert.Throws<ArgumentException>(() =>
+            calculator.Add(input));
+
+            Assert.Equal(expectedMassege, exception.Message);
+        }
     }
 }

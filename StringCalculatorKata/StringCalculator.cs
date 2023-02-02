@@ -13,6 +13,10 @@
             for (int i = 0; i < SplitedNumbers.Length; i++)
             {
                 int num = Int32.Parse(SplitedNumbers[i]);
+                if (num < 0)
+                {
+                    ThrowException(i, SplitedNumbers);
+                }
                 sum += num;
             }
             return sum;
@@ -31,6 +35,17 @@
             return SplitedNumbers;
         }
 
-
+        private void ThrowException(int startPoint, string[] splitedNumbers)
+        {
+            string nums = "";
+            for (int i = startPoint; i < splitedNumbers.Length; i++)
+            {
+                if (splitedNumbers[i][0] == '-')
+                {
+                    nums += splitedNumbers[i] + ", ";
+                }
+            }
+            throw new ArgumentException($"negatives not allowed: {nums}");
+        }
     }
 }
