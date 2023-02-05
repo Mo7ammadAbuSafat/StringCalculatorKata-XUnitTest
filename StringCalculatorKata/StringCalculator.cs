@@ -4,50 +4,44 @@
     {
         public int Add(string numbers)
         {
-            if (numbers.Equals(""))
+            if (string.IsNullOrEmpty(numbers))
             {
                 return 0;
             }
-            string[] SplitedNumbers = stringNumbersSpliter(numbers);
-            int sum = 0;
-            for (int i = 0; i < SplitedNumbers.Length; i++)
+            string[] delimiters = GetDelimiters(ref numbers);
+            string[] splitedNumbers = GetSplitedNumbers(numbers, delimiters);
+            bool thereIsANegativeNumbers = splitedNumbers.Any(c => c[0] == '-');
+            if (thereIsANegativeNumbers)
             {
-                int num = Int32.Parse(SplitedNumbers[i]);
-                if (num < 0)
-                {
-                    ThrowException(i, SplitedNumbers);
-                }
-                if (num < 1000)
-                {
-                    sum += num;
-                }
+                ThrowException(splitedNumbers);
             }
+            int[] intNumbers = splitedNumbers.Select(x => Int32.Parse(x)).ToArray();
+            int sum = intNumbers.Where(x => x < 1000).Sum();
             return sum;
         }
 
-        private string[] stringNumbersSpliter(string numbers)
+        private string[] GetDelimiters(ref string numbers)
         {
-            List<string> spliters = new List<string> { ",", "\n" };
+            List<string> delimiters = new List<string> { ",", "\n" };
             if (numbers[0] == '/')
             {
                 int endPoint = numbers.IndexOf('\n');
-                spliters.Add(numbers.Substring(2, endPoint - 2));
+                delimiters.Add(numbers.Substring(2, endPoint - 2));
                 numbers = numbers.Substring(endPoint + 1);
             }
-            string[] SplitedNumbers = numbers.Split(spliters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
+            return delimiters.ToArray();
+        }
+
+        private string[] GetSplitedNumbers(string numbers, string[] delimiters)
+        {
+            string[] SplitedNumbers = numbers.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
             return SplitedNumbers;
         }
 
-        private void ThrowException(int startPoint, string[] splitedNumbers)
+        private void ThrowException(string[] splitedNumbers)
         {
-            string nums = "";
-            for (int i = startPoint; i < splitedNumbers.Length; i++)
-            {
-                if (splitedNumbers[i][0] == '-')
-                {
-                    nums += splitedNumbers[i] + ", ";
-                }
-            }
+            string[] negativeNumbers = splitedNumbers.Where(c => c[0] == '-').ToArray();
+            string nums = string.Join(',', negativeNumbers);
             throw new ArgumentException($"negatives not allowed: {nums}");
         }
     }

@@ -80,9 +80,9 @@ namespace StringCalculatorKataTest
         }
 
         [Theory]
-        [InlineData("1,4,-1", "negatives not allowed: -1, ")]
-        [InlineData("1,-4,-1", "negatives not allowed: -4, -1, ")]
-        [InlineData("-1,-4,-1", "negatives not allowed: -1, -4, -1, ")]
+        [InlineData("1,4,-1", "negatives not allowed: -1")]
+        [InlineData("1,-4,-1", "negatives not allowed: -4,-1")]
+        [InlineData("-1,-4,-1", "negatives not allowed: -1,-4,-1")]
         public void AddNumbersStringThrowExceptionWhenNegativeNumbersInput(string input, string expectedMassege)
         {
             StringCalculator calculator = new StringCalculator();
